@@ -1,1 +1,33 @@
+<div class="quiz-container owl-carousel">
+  {% for question in module.questions %}
+    {% set card_num = loop.index %}
+    <form class="quiz-card" id="quiz-card-{{ card_num }}">
+      <h3 class="quiz-question">{{ question.question_text }}</h3>
+      <div class="quiz-answer-section">
+        {% if question.answer_type == "buttons" %}
+          {% for answer in question.answers %}
+            <button class="quiz-answer-button" id="quiz-answer-{{ card_num }}-{{ loop.index }}">
+              {{ answer.answer_text }}
+            </button>
+          {% endfor %}
+        {% else if question.answer_type == "text" or question.answer_type == "number" or question.answer_type == "email" %}
+          <input type="{{ question.answer_type }}" class="quiz-input" id="quiz-answer-{{ card_num }}">
+        {% else %}
+          <textarea class="quiz-input" id="quiz-answer-{{ card_num }}"></textarea>
+        {% endif %}
+      </div>
+      <div class="quiz-nav-section">
+        <button class="quiz-back-button" id="quiz-back-{{ card_num }}">Back</button>
+        <button class="quiz-next-button quiz-hidden" id="quiz-next-{{ card_num }}">Next</button>
+      </div>
+    </form>
+  {% endfor %}
+</div>
 
+{% require_js %}
+  <script>
+     $(document).ready(function() {
+        $('.quiz').owlCarousel()
+     })
+  </script>
+{% end_require_js %}

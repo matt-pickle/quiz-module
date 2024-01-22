@@ -1,3 +1,89 @@
 [
-
+  {
+    "label": "Form",
+    "name": "form",
+    "type": "form",
+    "visibility": {
+      "hidden_subfields": {
+        "message": true
+      }
+    }
+  },
+  {
+    "label": "Questions",
+    "name": "questions",
+    "type": "group",
+    "occurrence": {
+      "default": 2
+    },
+    "children": [
+      {
+        "label": "Question Text",
+        "name": "question_text",
+        "type": "text",
+        "default": "Type question here..."
+      },
+      {
+        "label": "Contact Property Internal Name",
+        "name": "internal_name",
+        "type": "text",
+        "inline_help_text": "The internal name for the Contact property the answer will be saved to. Example: number_of_employees"
+      },
+      {
+        "label": "Answer Type",
+        "name": "answer_type",
+        "type": "choice",
+        "choices": [
+          ["buttons", "Buttons"],
+          ["text", "Text"],
+          ["textarea", "Multiline Text"],
+          ["number", "Number"],
+          ["email", "Email"]
+        ]
+      },
+      {
+        "label": "Allow Multiple Selections",
+        "name": "allow_multiple",
+        "type": "boolean"
+      },
+      {
+        "label": "Answers",
+        "name": "answers",
+        "type": "group",
+        "occurrence": {
+          "default": 2
+        },
+        "visibility": {
+          "controlling_field_path": "questions.answer_type",
+          "controlling_value_regex": "buttons",
+          "operator": "EQUAL"
+        },
+        "children": [
+          {
+            "label": "Answer Text",
+            "name": "answer_text",
+            "type": "text",
+            "default": "Answer"
+          },
+          {
+            "label": "Scoring Category",
+            "name": "scoring_category",
+            "type": "choice",
+            "choices": [
+              ["category-1", "Category 1"],
+              ["category-2", "Category 2"],
+              ["category-3", "Category 3"],
+              ["category-4", "Category 4"]
+            ]
+          },
+          {
+            "label": "Score",
+            "name": "score",
+            "type": "number",
+            "default": 0
+          }
+        ]
+      }
+    ]
+  }
 ]

@@ -1,8 +1,21 @@
 [
   {
+    "label": "Quiz Title",
+    "name": "title",
+    "type": "text",
+    "default": "Quiz Title"
+  },
+  {
+    "label": "Welcome Text",
+    "name": "welcome_text",
+    "type": "text",
+    "default": "Sit velit aliquip qui labore et nisi et occaecat dolor do velit proident. Velit aliqua adipisicing ut dolor. Eiusmod mollit pariatur occaecat excepteur veniam laboris do."
+  },
+  {
     "label": "Form",
     "name": "form",
     "type": "form",
+    "inline_help_text": "The form that will be submitted when the quiz is complete. This should be created first.",
     "visibility": {
       "hidden_subfields": {
         "message": true

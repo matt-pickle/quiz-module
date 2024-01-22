@@ -91,7 +91,8 @@
               ["category-1", "Category 1"],
               ["category-2", "Category 2"],
               ["category-3", "Category 3"],
-              ["category-4", "Category 4"]
+              ["category-4", "Category 4"],
+              ["category-5", "Category 5"]
             ]
           },
           {
@@ -112,6 +113,54 @@
             }
           }
         ]
+      }
+    ]
+  },
+  {
+    "label": "Results",
+    "name": "results",
+    "type": "group",
+    "occurrence": {
+      "default": 1,
+      "max": 5
+    },
+    "children": [
+      {
+        "label": "Winning Category",
+        "name": "winning_category",
+        "type": "choice",
+        "inline_help_text": "This result card will be shown if the selected category has the highest accumulated score.",
+        "choices": [
+          ["category-1", "Category 1"],
+          ["category-2", "Category 2"],
+          ["category-3", "Category 3"],
+          ["category-4", "Category 4"],
+          ["category-5", "Category 5"]
+        ]
+      },
+      {
+        "label": "Title",
+        "name": "title",
+        "type": "text",
+        "default": "Your Result"
+      },
+      {
+        "label": "Text",
+        "name": "text",
+        "type": "richtext",
+        "inline_help_text": "Calculated properties can be inserted here if needed",
+        "default": "<p>Ipsum occaecat pariatur culpa est incididunt mollit. Velit occaecat veniam ut dolor officia sint qui non pariatur incididunt enim esse occaecat dolore. Aliquip culpa veniam ex incididunt do enim fugiat minim in consectetur ex sunt velit consectetur. Laborum nostrud labore aliqua ex cillum cillum dolor culpa ullamco. Pariatur velit excepteur amet duis exercitation qui veniam veniam eiusmod nulla.</p>"
+      },
+      {
+        "label": "Button Text",
+        "name": "button_text",
+        "type": "text",
+        "default": "Contact Us"
+      },
+      {
+        "label": "Button Link",
+        "name": "button_link",
+        "type": "link"
       }
     ]
   },

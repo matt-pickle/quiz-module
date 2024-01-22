@@ -38,6 +38,24 @@
       </div>
     </form>
   {% endfor %}
+
+  {% for result in module.results %}
+    <form class="quiz-card" id="quiz-card-{{ module.questions|length + loop.index }}">
+      <h3 class="quiz-title">{{ result.title }}</h3>
+      <p class="quiz-text">{{ result.text }}</p>
+    </form>
+    <div class="quiz-nav-section">
+      {% set href = result.button_link.url.href %}
+      {% if result.button_link.url.type is equalto "EMAIL_ADDRESS" %}
+         {% set href = "mailto:" + href %}
+      {% endif %}
+      <a class="quiz-next-button"
+        href="{{ href }}"
+        {% if result.button_link.open_in_new_tab %} target="_blank"{% endif %}
+        {% if result.button_link.rel %} rel="{{ result.button_link.rel }}"{% endif %}
+      >{{ result.button_text }}</button>
+    </div>
+  {% endfor %}
 </div>
 
 {% require_js %}

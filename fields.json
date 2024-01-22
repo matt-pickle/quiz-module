@@ -57,7 +57,12 @@
       {
         "label": "Allow Multiple Selections",
         "name": "allow_multiple",
-        "type": "boolean"
+        "type": "boolean",
+        "visibility": {
+          "controlling_field_path": "questions.answer_type",
+          "controlling_value_regex": "buttons",
+          "operator": "EQUAL"
+        }
       },
       {
         "label": "Answers",
@@ -94,6 +99,17 @@
             "name": "score",
             "type": "number",
             "default": 0
+          },
+          {
+            "label": "Next Question",
+            "name": "next_question",
+            "type": "number",
+            "inline_help_text": "Number of question that will follow this one if this answer is selected.",
+            "visibility": {
+              "controlling_field_path": "questions.allow_multiple",
+              "controlling_value_regex": false,
+              "operator": "EQUAL"
+            }
           }
         ]
       }

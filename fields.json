@@ -114,5 +114,15 @@
         ]
       }
     ]
+  },
+  {
+    "label": "Slide Transition",
+    "name": "slide_transition",
+    "type": "choice",
+    "choices": [
+      ["slide", "Slide"],
+      ["fade", "Fade"]
+    ],
+    "default": "slide"
   }
 ]

@@ -49,7 +49,9 @@
         mouseDrag: false,
         touchDrag: false,
         pullDrag: false,
-        dots: false
+        dots: false,
+        animateIn: {% if module.slide_transition == "fade" %}"fadeIn"{% else %}false{% endif %},
+        animateOut: {% if module.slide_transition == "fade" %}"fadeOut"{% else %}false{% endif %},
       })
     })
   </script>

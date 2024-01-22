@@ -9,7 +9,7 @@
 
   {% for question in module.questions %}
     {% set card_num = loop.index %}
-    <form class="quiz-card" id="quiz-card-{{ card_num }}">
+    <form class="quiz-card quiz-hidden" id="quiz-card-{{ card_num }}">
       <h3 class="quiz-question">{{ question.question_text }}</h3>
       <div class="quiz-answer-section">
         {% if question.answer_type == "buttons" %}

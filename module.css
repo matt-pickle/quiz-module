@@ -1,3 +1,7 @@
+.quiz-answer-button-active {
+  background-color: blue;
+}
+
 .quiz-hidden {
   display: none;
 }

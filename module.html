@@ -9,22 +9,22 @@
 
   {% for question in module.questions %}
     {% set card_num = loop.index %}
-    <form class="quiz-card" id="quiz-card-{{ card_num }}">
+    <form class="quiz-card" id="quiz-card-{{ card_num }}" data-allow-multiple="{{ question.allow_multiple or false }}">
       <h3 class="quiz-question">{{ question.question_text }}</h3>
       <div class="quiz-answer-section">
         {% if question.answer_type == "buttons" %}
           {% for answer in question.answers %}
-            <button class="quiz-answer-button" id="quiz-answer-{{ card_num }}-{{ loop.index }}">
+            <button class="quiz-answer-button"
+              id="quiz-answer-{{ card_num }}-{{ loop.index }}"
+              data-card-num="{{ card_num }}"
+              data-answer-num="{{ loop.index }}"
+              data-score="{{ answer.score or 0 }}"
+              data-scoring-category="{{ answer.scoring_category or ''}}"
+              data-allow-multiple="{{ question.allow_multiple or false }}"
+              data-next-question="{{ answer.next_question or card_num + 1 }}"
+            >
               {{ answer.answer_text }}
             </button>
-            {% require_js %}
-              <script>
-                const nextCard = {% if answer.next_question %}{{ answer.next_question }}{% else %}{{ card_num + 1 }}{% endif %}
-                $('#quiz-next-{{ card_num }}').click(function() {
-                  $('.owl-carousel').trigger('to.owl.carousel', [nextCard])
-                })
-              </script>
-            {% end_require_js %}
           {% endfor %}
         {% else if question.answer_type == "text" or question.answer_type == "number" or question.answer_type == "email" %}
           <input type="{{ question.answer_type }}" class="quiz-input" id="quiz-answer-{{ card_num }}">

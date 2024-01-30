@@ -40,6 +40,16 @@ let categories = {
   category5: 0
 }
 
+let answers = {}
+
+$('.quiz-answer-button').each(function() {
+  const cardNum = Number($(this).attr("data-card-num"))
+  const allowMultiple = $(this).attr("data-allow-multiple")
+  if (allowMultiple === "true") {
+    answers["q" + cardNum] = []
+  }
+})
+
 $('.quiz-answer-button').click(function() {
   const cardNum = Number($(this).attr("data-card-num"))
   const allowMultiple = $(this).attr("data-allow-multiple")
@@ -50,9 +60,11 @@ $('.quiz-answer-button').click(function() {
     if ($(this).hasClass("quiz-answer-button-active")) {
       $(this).removeClass("quiz-answer-button-active")
       categories[category] -= score
+      answers["q" + cardNum] = answers["q" + cardNum].filter(answer => answer !== $(this).text())
     } else {
       $(this).addClass("quiz-answer-button-active")
       categories[category] += score
+      answers["q" + cardNum].push($(this).text())
     }
   } else {
     $(`#quiz-card-${cardNum} .quiz-answer-button-active`).each(function() {
@@ -63,6 +75,17 @@ $('.quiz-answer-button').click(function() {
     })
     $(this).addClass("quiz-answer-button-active")
     categories[category] += score
+    answers["q" + cardNum] = $(this).text()
   }
   $(`#quiz-next-${cardNum}`).removeClass("quiz-hidden")
+})
+
+$('.quiz-input').change(function() {
+  const cardNum = $(this).attr("id").replace("quiz-answer-", "")
+  answers["q" + cardNum] = $(this).val()
+})
+
+$('.quiz-contact-input').change(function() {
+  const variableName = $(this).prev("label").html()
+  answers[variableName] = $(this).val()
 })

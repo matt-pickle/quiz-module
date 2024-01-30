@@ -8,7 +8,7 @@
   </form>
 
   {% for question in module.questions %}
-    {% set number_of_cards = module.questions|length + 1 %}
+    {% set number_of_cards = module.questions|length + 2 %}
     {% set card_num = loop.index %}
     {% set percent_complete = (card_num / number_of_cards * 100)|round %}
     {% set percent_incomplete = 100 - percent_complete %}
@@ -48,7 +48,7 @@
   {% endfor %}
 
   {% for result in module.results %}
-    <form class="quiz-card" id="quiz-card-{{ module.questions|length + loop.index }}">
+    <form class="quiz-card" id="quiz-card-{{ module.questions|length + 1 + loop.index }}">
       <span class="quiz-complete-text">100% Complete</span>
       <div class="quiz-complete-bar">
         <div class="quiz-complete-bar-full" style="width: 100%"></div>

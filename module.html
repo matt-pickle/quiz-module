@@ -30,9 +30,7 @@
               data-scoring-category="{{ answer.scoring_category or ''}}"
               data-allow-multiple="{{ question.allow_multiple or false }}"
               data-next-question="{{ answer.next_question or card_num + 1 }}"
-            >
-              {{ answer.answer_text }}
-            </button>
+            >{{ answer.answer_text }}</button>
           {% endfor %}
         {% else if question.answer_type == "text" or question.answer_type == "number" or question.answer_type == "email" %}
           <input type="{{ question.answer_type }}" class="quiz-input" id="quiz-answer-{{ card_num }}">

@@ -12,7 +12,7 @@
     {% set card_num = loop.index %}
     {% set percent_complete = (card_num / number_of_cards * 100)|round %}
     {% set percent_incomplete = 100 - percent_complete %}
-    <form class="quiz-card" id="quiz-card-{{ card_num }}" data-allow-multiple="{{ question.allow_multiple or false }}">
+    <form class="quiz-card" id="quiz-card-{{ card_num }}" data-allow-multiple="{{ question.allow_multiple }}">
       <span class="quiz-complete-text">{{ percent_complete }}% Complete</span>
       <div class="quiz-complete-bar">
         <div class="quiz-complete-bar-full" style="width: {{ percent_complete }}%"></div>
@@ -46,6 +46,43 @@
       </div>
     </form>
   {% endfor %}
+
+  <form class="quiz-card quiz-contact-card" id="quiz-card-{{ module.questions|length + 1 }}">
+    {% set number_of_cards = module.questions|length + 2 %}
+    {% set card_num = module.questions|length + 1 %}
+    {% set percent_complete = (card_num / number_of_cards * 100)|round %}
+    {% set percent_incomplete = 100 - percent_complete %}
+    <span class="quiz-complete-text">{{ percent_complete }}% Complete</span>
+    <div class="quiz-complete-bar">
+      <div class="quiz-complete-bar-full" style="width: {{ percent_complete }}%"></div>
+      <div class="quiz-complete-bar-empty" style="width: {{ percent_incomplete }}%"></div>
+    </div>
+    <h3 class="quiz-title">{{ module.contact_form.title }}</h3>
+    <p class="quiz-text">{{ module.contact_form.text }}</p>
+    <div class="quiz-answer-section">
+      {% for field in module.contact_form.fields %}
+        <label for="quiz-input-{{ field.internal_name }}">{{ field.input_label }}</label>
+        {% if field.input_type == "textarea" %}
+          <textarea class="quiz-contact-input"
+            id="quiz-input-{{ field.internal_name }}"
+            name="{{ field.internal_name }}"
+          ></textarea>
+        {% else %}
+          <input type="{{ field.input_type }}"
+            class="quiz-contact-input"
+            id="quiz-input-{{ field.internal_name }}"
+            name="{{ field.internal_name }}"
+          >
+        {% endif %}
+      {% endfor %}
+    </div>
+    <div class="quiz-nav-section">
+      <button class="quiz-back-button" id="quiz-back-{{ card_num }}">Back</button>
+      <button class="quiz-next-button quiz-hidden" id="quiz-next-{{ card_num }}">
+        {{ module.contact_form.button_text }}
+      </button>
+    </div>
+  </form>
 
   {% for result in module.results %}
     <form class="quiz-card" id="quiz-card-{{ module.questions|length + 1 + loop.index }}">

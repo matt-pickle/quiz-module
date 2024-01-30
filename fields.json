@@ -122,6 +122,18 @@
     "type": "group",
     "children": [
       {
+        "label": "Title",
+        "name": "title",
+        "type": "text",
+        "default": "Contact Info"
+      },
+      {
+        "label": "Text",
+        "name": "text",
+        "type": "text",
+        "default": "Almost done! Tell us a bit about yourself to see your results."
+      },
+      {
         "label": "Fields",
         "name": "fields",
         "type": "group",

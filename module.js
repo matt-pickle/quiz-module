@@ -13,8 +13,9 @@ $('#quiz-start').click(function() {
 $('.quiz-next-button').not("#quiz-start").click(function() {
   const cardNum = Number($(this).attr("id").replace("quiz-next-", ""))
   const allowMultiple = $(this).parent().parent().attr("data-allow-multiple")
+  const answerButtons = $(this).parent().prev(".quiz-answer-section").children("button")
   let nextCard = 1
-  if (allowMultiple === "false") {
+  if (answerButtons.length && allowMultiple === "false") {
     const activeButton = $(this).parent().prev(".quiz-answer-section").children(".quiz-answer-button-active")
     const nextQuestion = Number(activeButton.attr("data-next-question"))
     nextCard = nextQuestion
@@ -80,12 +81,22 @@ $('.quiz-answer-button').click(function() {
   $(`#quiz-next-${cardNum}`).removeClass("quiz-hidden")
 })
 
-$('.quiz-input').change(function() {
+$('.quiz-input').on("input", function() {
   const cardNum = $(this).attr("id").replace("quiz-answer-", "")
   answers["q" + cardNum] = $(this).val()
+  $(this).parent().next(".quiz-nav-section").find(".quiz-next-button").removeClass("quiz-hidden")
 })
 
-$('.quiz-contact-input').change(function() {
+$('.quiz-contact-input').on("input", function() {
   const variableName = $(this).prev("label").html()
   answers[variableName] = $(this).val()
+  let allFilled = true
+  $(".quiz-contact-input").each(function() {
+    if ($(this).val() === "") {
+      allFilled = false
+    }
+  })
+  if (allFilled) {
+    $(this).parent().next(".quiz-nav-section").find(".quiz-next-button").removeClass("quiz-hidden")
+  }
 })

@@ -105,6 +105,5 @@ $('#quiz-contact-next').click(function() {
   const winner = Object.keys(categories).reduce((a, b) => categories[a] > categories[b] ? a : b)
   const resultCard = $(`.quiz-card[data-winning-category="${winner}"]`)
   const resultCardNum = resultCard.attr("id").replace("quiz-card-", "")
-  console.log(resultCardNum)
   $('.owl-carousel').trigger('to.owl.carousel', [resultCardNum])
 })

@@ -12,7 +12,7 @@
     "default": "Sit velit aliquip qui labore et nisi et occaecat dolor do velit proident. Velit aliqua adipisicing ut dolor. Eiusmod mollit pariatur occaecat excepteur veniam laboris do."
   },
   {
-    "label": "Form",
+    "label": "HubSpot Form",
     "name": "form",
     "type": "form",
     "inline_help_text": "The form that will be submitted when the quiz is complete. This should be created first.",
@@ -113,6 +113,70 @@
             }
           }
         ]
+      }
+    ]
+  },
+  {
+    "label": "Contact Form",
+    "name": "contact_form",
+    "type": "group",
+    "children": [
+      {
+        "label": "Fields",
+        "name": "fields",
+        "type": "group",
+        "occurrence": {
+          "sorting_label_field": "input_label",
+          "default": 3
+        },
+        "children": [
+          {
+            "label": "Label",
+            "name": "input_label",
+            "type": "text"
+          },
+          {
+            "label": "Contact Property Internal Name",
+            "name": "internal_name",
+            "type": "text",
+            "inline_help_text": "The internal name for the Contact property the answer will be saved to. Example: firstname"
+          },
+          {
+            "label": "Input Type",
+            "name": "input_type",
+            "type": "choice",
+            "choices": [
+              ["text", "Text"],
+              ["textarea", "Multiline Text"],
+              ["number", "Number"],
+              ["email", "Email"]
+            ],
+            "default": "text"
+          }
+        ],
+        "default": [
+          {
+            "input_label": "First Name",
+            "internal_name": "firstname",
+            "input_type": "text"
+          },
+          {
+            "input_label": "Last Name",
+            "internal_name": "lastname",
+            "input_type": "text"
+          },
+          {
+            "input_label": "Email",
+            "internal_name": "email",
+            "input_type": "email"
+          }
+        ]
+      },
+      {
+        "label": "Button Text",
+        "name": "button_text",
+        "type": "text",
+        "default": "See Results"
       }
     ]
   },

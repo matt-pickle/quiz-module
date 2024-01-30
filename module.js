@@ -10,7 +10,7 @@ $('#quiz-start').click(function() {
   $('.owl-carousel').trigger('to.owl.carousel', [1])
 })
 
-$('.quiz-next-button').not("#quiz-start").click(function() {
+$('.quiz-next-button').not("#quiz-start").not("#quiz-contact-next").click(function() {
   const cardNum = Number($(this).attr("id").replace("quiz-next-", ""))
   const allowMultiple = $(this).parent().parent().attr("data-allow-multiple")
   const answerButtons = $(this).parent().prev(".quiz-answer-section").children("button")
@@ -99,4 +99,12 @@ $('.quiz-contact-input').on("input", function() {
   if (allFilled) {
     $(this).parent().next(".quiz-nav-section").find(".quiz-next-button").removeClass("quiz-hidden")
   }
+})
+
+$('#quiz-contact-next').click(function() {
+  const winner = Object.keys(categories).reduce((a, b) => categories[a] > categories[b] ? a : b)
+  const resultCard = $(`.quiz-card[data-winning-category="${winner}"]`)
+  const resultCardNum = resultCard.attr("id").replace("quiz-card-", "")
+  console.log(resultCardNum)
+  $('.owl-carousel').trigger('to.owl.carousel', [resultCardNum])
 })

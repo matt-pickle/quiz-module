@@ -78,14 +78,17 @@
     </div>
     <div class="quiz-nav-section">
       <button class="quiz-back-button" id="quiz-back-{{ card_num }}">Back</button>
-      <button class="quiz-next-button quiz-hidden" id="quiz-next-{{ card_num }}">
+      <button class="quiz-next-button quiz-hidden" id="quiz-contact-next">
         {{ module.contact_form.button_text }}
       </button>
     </div>
   </form>
 
   {% for result in module.results %}
-    <form class="quiz-card" id="quiz-card-{{ module.questions|length + 1 + loop.index }}">
+    <form class="quiz-card"
+      id="quiz-card-{{ module.questions|length + 1 + loop.index }}"
+      data-winning-category="{{ result.winning_category }}"  
+    >
       <span class="quiz-complete-text">100% Complete</span>
       <div class="quiz-complete-bar">
         <div class="quiz-complete-bar-full" style="width: 100%"></div>
@@ -93,18 +96,18 @@
       </div>
       <h3 class="quiz-title">{{ result.title }}</h3>
       <p class="quiz-text">{{ result.text }}</p>
+      <div class="quiz-nav-section">
+        {% set href = result.button_link.url.href %}
+        {% if result.button_link.url.type is equalto "EMAIL_ADDRESS" %}
+          {% set href = "mailto:" + href %}
+        {% endif %}
+        <a class="quiz-next-button"
+          href="{{ href }}"
+          {% if result.button_link.open_in_new_tab %} target="_blank"{% endif %}
+          {% if result.button_link.rel %} rel="{{ result.button_link.rel }}"{% endif %}
+        >{{ result.button_text }}</a>
+      </div>
     </form>
-    <div class="quiz-nav-section">
-      {% set href = result.button_link.url.href %}
-      {% if result.button_link.url.type is equalto "EMAIL_ADDRESS" %}
-         {% set href = "mailto:" + href %}
-      {% endif %}
-      <a class="quiz-next-button"
-        href="{{ href }}"
-        {% if result.button_link.open_in_new_tab %} target="_blank"{% endif %}
-        {% if result.button_link.rel %} rel="{{ result.button_link.rel }}"{% endif %}
-      >{{ result.button_text }}</button>
-    </div>
   {% endfor %}
 </div>
 

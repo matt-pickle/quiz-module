@@ -2,6 +2,35 @@
   background-color: blue;
 }
 
+.quiz-complete-section {
+   display: flex;
+   flex-direction: column;
+   width: 100%;
+   max-width: 540px;
+   margin-bottom: 50px;
+}
+
+.quiz-complete-text {
+   color: #8D8D8D;
+   align-self: flex-start;
+   margin-bottom: 5px;
+}
+
+.quiz-complete-bar {
+   display: flex;
+   width: 100%;
+   max-width: 540px;
+   height: 4px;
+}
+
+.quiz-complete-bar-full {
+   background-color: #4A79AD;
+}
+
+.quiz-complete-bar-empty {
+   background-color: #EFF0EE;
+}
+
 .quiz-hidden {
   display: none;
 }

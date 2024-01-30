@@ -8,8 +8,16 @@
   </form>
 
   {% for question in module.questions %}
+    {% set number_of_cards = module.questions|length + 1 %}
     {% set card_num = loop.index %}
+    {% set percent_complete = (card_num / number_of_cards * 100)|round %}
+    {% set percent_incomplete = 100 - percent_complete %}
     <form class="quiz-card" id="quiz-card-{{ card_num }}" data-allow-multiple="{{ question.allow_multiple or false }}">
+      <span class="quiz-complete-text">{{ percent_complete }}% Complete</span>
+      <div class="quiz-complete-bar">
+        <div class="quiz-complete-bar-full" style="width: {{ percent_complete }}%"></div>
+        <div class="quiz-complete-bar-empty" style="width: {{ percent_incomplete }}%"></div>
+      </div>
       <h3 class="quiz-question">{{ question.question_text }}</h3>
       <div class="quiz-answer-section">
         {% if question.answer_type == "buttons" %}
@@ -41,6 +49,11 @@
 
   {% for result in module.results %}
     <form class="quiz-card" id="quiz-card-{{ module.questions|length + loop.index }}">
+      <span class="quiz-complete-text">100% Complete</span>
+      <div class="quiz-complete-bar">
+        <div class="quiz-complete-bar-full" style="width: 100%"></div>
+        <div class="quiz-complete-bar-empty" style="width: 0"></div>
+      </div>
       <h3 class="quiz-title">{{ result.title }}</h3>
       <p class="quiz-text">{{ result.text }}</p>
     </form>
@@ -57,6 +70,12 @@
     </div>
   {% endfor %}
 </div>
+
+{% require_css %}
+  <style>
+
+  </style>
+{% end_require_css %}
 
 {% require_js %}
   <script>

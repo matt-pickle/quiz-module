@@ -1,7 +1,7 @@
 <div class="quiz-container owl-carousel">
   <form class="quiz-card" id="quiz-card-0">
-    <h3 class="quiz-title">{{ module.title }}</h3>
-    <p class="quiz-text">{{ module.welcome_text }}</p>
+    <h3 class="quiz-title">{{ module.welcome_slide.title }}</h3>
+    <p class="quiz-text">{{ module.welcome_slide.welcome_text }}</p>
     <div class="quiz-nav-section">
       <button class="quiz-next-button" id="quiz-start">Get Started</button>
     </div>
@@ -59,10 +59,10 @@
       <div class="quiz-complete-bar-full" style="width: {{ percent_complete }}%"></div>
       <div class="quiz-complete-bar-empty" style="width: {{ percent_incomplete }}%"></div>
     </div>
-    <h3 class="quiz-title">{{ module.contact_form.title }}</h3>
-    <p class="quiz-text">{{ module.contact_form.text }}</p>
+    <h3 class="quiz-title">{{ module.contact_slide.title }}</h3>
+    <p class="quiz-text">{{ module.contact_slide.text }}</p>
     <div class="quiz-answer-section">
-      {% for field in module.contact_form.fields %}
+      {% for field in module.contact_slide.fields %}
         <label for="quiz-input-{{ field.internal_name }}">{{ field.input_label }}</label>
         {% if field.input_type == "textarea" %}
           <textarea class="quiz-contact-input"
@@ -83,11 +83,11 @@
       <button class="quiz-next-button quiz-hidden"
         id="quiz-contact-next"
         data-portal-id="{{ hub_id }}"
-        data-form-id="{{ module.form.form_id }}"
+        data-form-id="{{ module.hubspot_form.form.form_id }}"
         data-page-id="{{ content_id }}"
         data-page-name="{{ page_meta.name }}"
       >
-        {{ module.contact_form.button_text }}
+        {{ module.contact_slide.button_text }}
       </button>
     </div>
   </form>

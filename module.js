@@ -53,7 +53,8 @@ $('.quiz-answer-button').each(function() {
 
 $('.quiz-answer-button').click(function() {
   const cardNum = Number($(this).attr("data-card-num"))
-  const allowMultiple = $(this).attr("data-allow-multiple")
+  const allowMultiple = $(this).parent().parent().attr("data-allow-multiple")
+  const internalName = $(this).parent().parent().attr("data-internal-name")
   const score = Number($(this).attr("data-score"))
   const category = $(this).attr("data-scoring-category")
 
@@ -61,11 +62,11 @@ $('.quiz-answer-button').click(function() {
     if ($(this).hasClass("quiz-answer-button-active")) {
       $(this).removeClass("quiz-answer-button-active")
       categories[category] -= score
-      answers["q" + cardNum] = answers["q" + cardNum].filter(answer => answer !== $(this).text())
+      answers[internalName] = answers[internalName].filter(answer => answer !== $(this).text())
     } else {
       $(this).addClass("quiz-answer-button-active")
       categories[category] += score
-      answers["q" + cardNum].push($(this).text())
+      answers[internalName].push($(this).text())
     }
   } else {
     $(`#quiz-card-${cardNum} .quiz-answer-button-active`).each(function() {
@@ -76,20 +77,20 @@ $('.quiz-answer-button').click(function() {
     })
     $(this).addClass("quiz-answer-button-active")
     categories[category] += score
-    answers["q" + cardNum] = $(this).text()
+    answers[internalName] = $(this).text()
   }
   $(`#quiz-next-${cardNum}`).removeClass("quiz-hidden")
 })
 
 $('.quiz-input').on("input", function() {
-  const cardNum = $(this).attr("id").replace("quiz-answer-", "")
-  answers["q" + cardNum] = $(this).val()
+  const internalName = $(this).parent().parent().attr("data-internal-name")
+  answers[internalName] = $(this).val()
   $(this).parent().next(".quiz-nav-section").find(".quiz-next-button").removeClass("quiz-hidden")
 })
 
 $('.quiz-contact-input').on("input", function() {
-  const variableName = $(this).prev("label").html()
-  answers[variableName] = $(this).val()
+  const internalName = $(this).attr("name")
+  answers[internalName] = $(this).val()
   let allFilled = true
   $(".quiz-contact-input").each(function() {
     if ($(this).val() === "") {
@@ -105,5 +106,48 @@ $('#quiz-contact-next').click(function() {
   const winner = Object.keys(categories).reduce((a, b) => categories[a] > categories[b] ? a : b)
   const resultCard = $(`.quiz-card[data-winning-category="${winner}"]`)
   const resultCardNum = resultCard.attr("id").replace("quiz-card-", "")
+  const portalId = $(this).attr("data-portal-id")
+  const formId = $(this).attr("data-form-id")
+  const pageId = $(this).attr("data-page-id")
+  const pageName = $(this).attr("data-page-name")
+  submitForm(portalId, formId, pageId, pageName)
   $('.owl-carousel').trigger('to.owl.carousel', [resultCardNum])
 })
+
+//FORM SUBMISSION
+function submitForm(portalId, formId, pageId, pageName) {
+  const hubspotCookie = () => {
+    return document.cookie.replace(
+      /(?:(?:^|.*;\s*)hubspotutk\s*\=\s*([^;]*).*$)|^.*$/,
+      "$1"
+    )
+  }
+  
+  let data = {
+    fields: [],
+    context: {
+      hutk: hubspotCookie(),
+      pageName: pageName,
+      pageId: pageId
+    },
+    skipValidation: true
+  }
+
+  data.fields = Object.entries(answers).map(answer => {
+    return { name: answer[0], value: answer[1] }
+  })
+  
+  fetch(`https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+    redirect: "follow",
+  })
+  .then((response) => {
+    if (response.redirected) {
+      window.location.href = response.url
+    }
+    console.log("Form submitted")
+  })
+  .catch((error) => console.log("error", error))
+}

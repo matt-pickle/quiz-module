@@ -54,7 +54,8 @@
         "label": "Contact Property Internal Name",
         "name": "internal_name",
         "type": "text",
-        "inline_help_text": "The internal name for the Contact property the answer will be saved to. Example: number_of_employees"
+        "inline_help_text": "The internal name for the Contact property the answer will be saved to. Example: number_of_employees",
+        "required": true
       },
       {
         "label": "Answer Type",

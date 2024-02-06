@@ -59,6 +59,9 @@ $('.quiz-answer-button').click(function() {
   const category = $(this).attr("data-scoring-category")
 
   if (allowMultiple === "true") {
+    if (!answers[internalName]) {
+      answers[internalName] = []
+    }
     if ($(this).hasClass("quiz-answer-button-active")) {
       $(this).removeClass("quiz-answer-button-active")
       categories[category] -= score

@@ -121,6 +121,11 @@ $('#quiz-contact-next').click(function() {
   const formId = $(this).attr("data-form-id")
   const pageId = $(this).attr("data-page-id")
   const pageName = $(this).attr("data-page-name")
+  Object.keys(answers).map(key => {
+    if (Array.isArray(answers[key])) {
+      answers[key] = answers[key].join(";");
+    }
+  })
   submitForm(portalId, formId, pageId, pageName)
   $('.owl-carousel').trigger('to.owl.carousel', [resultCardNum])
 })

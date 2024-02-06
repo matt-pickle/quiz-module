@@ -12,7 +12,7 @@
   {% for question in module.questions %}
     {% set number_of_cards = module.questions|length + 2 %}
     {% set card_num = loop.index %}
-    {% set percent_complete = (card_num / number_of_cards * 100)|round %}
+    {% set percent_complete = ((card_num - 1) / number_of_cards * 100)|round %}
     {% set percent_incomplete = 100 - percent_complete %}
     <form class="quiz-card" id="quiz-card-{{ card_num }}"
       data-allow-multiple="{{ question.allow_multiple }}"

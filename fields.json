@@ -263,5 +263,291 @@
       ["fade", "Fade"]
     ],
     "default": "slide"
+  },
+  {
+    "tab": "STYLE",
+    "label": "Style",
+    "name": "style",
+    "type": "group",
+    "children": [
+      {
+        "label": "Card",
+        "name": "card",
+        "type": "group",
+        "children": [
+          {
+            "label": "Background Color",
+            "name": "background_color",
+            "type": "color"
+          },
+          {
+            "label": "Border",
+            "name": "border",
+            "type": "border"
+          },
+          {
+            "label": "Corner Radius",
+            "name": "corner_radius",
+            "type": "number",
+            "suffix": "px"
+          },
+          {
+            "label": "Spacing",
+            "name": "spacing",
+            "type": "spacing"
+          }
+        ]
+      },
+      {
+        "label": "Heading Font",
+        "name": "heading_font",
+        "type": "font"
+      },
+      {
+        "label": "Text Font",
+        "name": "text_font",
+        "type": "font"
+      },
+      {
+        "label": "Label Font",
+        "name": "label_font",
+        "type": "font"
+      },
+      {
+        "label": "Progress Bar",
+        "name": "progress_bar",
+        "type": "group",
+        "children": [
+          {
+            "label": "Height",
+            "name": "height",
+            "type": "number",
+            "suffix": "px",
+            "default": 5
+          },
+          {
+            "label": "Filled Color",
+            "name": "filled_color",
+            "type": "color",
+            "default": {
+              "color": "#4A79AD",
+              "opacity": 100
+            }
+          },
+          {
+            "label": "Empty Color",
+            "name": "empty_color",
+            "type": "color",
+            "default": {
+              "color": "#e0e0e0",
+              "opacity": 100
+            }
+          }
+        ]
+      },
+      {
+        "label": "Answer Buttons",
+        "name": "answer_button",
+        "type": "group",
+        "children": [
+          {
+            "label": "Button Color",
+            "name": "button_color",
+            "type": "color"
+          },
+          {
+            "label": "Font",
+            "name": "font",
+            "type": "font"
+          },
+          {
+            "label": "Border",
+            "name": "border",
+            "type": "border"
+          },
+          {
+            "label": "Corner Radius",
+            "name": "corner_radius",
+            "type": "number",
+            "suffix": "px"
+          },
+          {
+            "label": "Spacing",
+            "name": "spacing",
+            "type": "spacing"
+          },
+          {
+            "label": "Hover/Active",
+            "name": "hover",
+            "type": "group",
+            "children": [
+              {
+                "label": "Button Color",
+                "name": "button_color",
+                "type": "color"
+              },
+              {
+                "label": "Font",
+                "name": "font",
+                "type": "font"
+              },
+              {
+                "label": "Border",
+                "name": "border",
+                "type": "border"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Back Button",
+        "name": "back_button",
+        "type": "group",
+        "children": [
+          {
+            "label": "Button Color",
+            "name": "button_color",
+            "type": "color"
+          },
+          {
+            "label": "Font",
+            "name": "font",
+            "type": "font"
+          },
+          {
+            "label": "Border",
+            "name": "border",
+            "type": "border"
+          },
+          {
+            "label": "Corner Radius",
+            "name": "corner_radius",
+            "type": "number",
+            "suffix": "px"
+          },
+          {
+            "label": "Spacing",
+            "name": "spacing",
+            "type": "spacing"
+          },
+          {
+            "label": "Hover",
+            "name": "hover",
+            "type": "group",
+            "children": [
+              {
+                "label": "Button Color",
+                "name": "button_color",
+                "type": "color"
+              },
+              {
+                "label": "Font",
+                "name": "font",
+                "type": "font"
+              },
+              {
+                "label": "Border",
+                "name": "border",
+                "type": "border"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Next Button",
+        "name": "next_button",
+        "type": "group",
+        "children": [
+          {
+            "label": "Button Color",
+            "name": "button_color",
+            "type": "color"
+          },
+          {
+            "label": "Font",
+            "name": "font",
+            "type": "font"
+          },
+          {
+            "label": "Border",
+            "name": "border",
+            "type": "border"
+          },
+          {
+            "label": "Corner Radius",
+            "name": "corner_radius",
+            "type": "number",
+            "suffix": "px"
+          },
+          {
+            "label": "Spacing",
+            "name": "spacing",
+            "type": "spacing"
+          },
+          {
+            "label": "Hover",
+            "name": "hover",
+            "type": "group",
+            "children": [
+              {
+                "label": "Button Color",
+                "name": "button_color",
+                "type": "color"
+              },
+              {
+                "label": "Font",
+                "name": "font",
+                "type": "font"
+              },
+              {
+                "label": "Border",
+                "name": "border",
+                "type": "border"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Form Fields",
+        "name": "form_fields",
+        "type": "group",
+        "children": [
+          {
+            "label": "Input Font",
+            "name": "input_font",
+            "type": "font"
+          },
+          {
+            "label": "Background Color",
+            "name": "background_color",
+            "type": "color"
+          },
+          {
+            "label": "Border",
+            "name": "border",
+            "type": "border"
+          },
+          {
+            "label": "Corner Radius",
+            "name": "corner_radius",
+            "type": "number",
+            "suffix": "px"
+          },
+          {
+            "label": "Focused Background Color",
+            "name": "focused_background_color",
+            "type": "color"
+          },
+          {
+            "label": "Focused Border",
+            "name": "focused_border",
+            "type": "border"
+          }
+        ]
+      }
+    ]
   }
 ]

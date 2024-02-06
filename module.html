@@ -1,9 +1,11 @@
 <div class="quiz-container owl-carousel">
   <form class="quiz-card" id="quiz-card-0">
-    <h3 class="quiz-title">{{ module.welcome_slide.title }}</h3>
+  <h3 class="{% if module.style.heading_font.css %}quiz-title{% else %}form-title{% endif %}">
+    {{ module.welcome_slide.title }}
+  </h3>
     <p class="quiz-text">{{ module.welcome_slide.welcome_text }}</p>
     <div class="quiz-nav-section">
-      <button class="quiz-next-button" id="quiz-start">Get Started</button>
+      <button class="quiz-next-button button button--primary" id="quiz-start">Get Started</button>
     </div>
   </form>
 
@@ -16,16 +18,18 @@
       data-allow-multiple="{{ question.allow_multiple }}"
       data-internal-name="{{ question.internal_name }}"
     >
-      <span class="quiz-complete-text">{{ percent_complete }}% Complete</span>
+      <span class="quiz-text">{{ percent_complete }}% Complete</span>
       <div class="quiz-complete-bar">
         <div class="quiz-complete-bar-full" style="width: {{ percent_complete }}%"></div>
         <div class="quiz-complete-bar-empty" style="width: {{ percent_incomplete }}%"></div>
       </div>
-      <h3 class="quiz-question">{{ question.question_text }}</h3>
+      <h3 class="{% if module.style.heading_font.css %}quiz-title{% else %}form-title{% endif %}">
+        {{ question.question_text }}
+      </h3>
       <div class="quiz-answer-section">
         {% if question.answer_type == "buttons" %}
           {% for answer in question.answers %}
-            <button class="quiz-answer-button"
+            <button class="quiz-answer-button button button--secondary"
               id="quiz-answer-{{ card_num }}-{{ loop.index }}"
               data-card-num="{{ card_num }}"
               data-score="{{ answer.score or 0 }}"
@@ -43,8 +47,8 @@
         {% endif %}
       </div>
       <div class="quiz-nav-section">
-        <button class="quiz-back-button" id="quiz-back-{{ card_num }}">Back</button>
-        <button class="quiz-next-button quiz-hidden" id="quiz-next-{{ card_num }}">Next</button>
+        <button class="quiz-back-button button button--primary" id="quiz-back-{{ card_num }}">Back</button>
+        <button class="quiz-next-button button button--primary quiz-hidden" id="quiz-next-{{ card_num }}">Next</button>
       </div>
     </form>
   {% endfor %}
@@ -54,12 +58,14 @@
     {% set card_num = module.questions|length + 1 %}
     {% set percent_complete = (card_num / number_of_cards * 100)|round %}
     {% set percent_incomplete = 100 - percent_complete %}
-    <span class="quiz-complete-text">{{ percent_complete }}% Complete</span>
+    <span class="quiz-text">{{ percent_complete }}% Complete</span>
     <div class="quiz-complete-bar">
       <div class="quiz-complete-bar-full" style="width: {{ percent_complete }}%"></div>
       <div class="quiz-complete-bar-empty" style="width: {{ percent_incomplete }}%"></div>
     </div>
-    <h3 class="quiz-title">{{ module.contact_slide.title }}</h3>
+    <h3 class="{% if module.style.heading_font.css %}quiz-title{% else %}form-title{% endif %}">
+      {{ module.contact_slide.title }}
+    </h3>
     <p class="quiz-text">{{ module.contact_slide.text }}</p>
     <div class="quiz-answer-section">
       {% for field in module.contact_slide.fields %}
@@ -79,8 +85,8 @@
       {% endfor %}
     </div>
     <div class="quiz-nav-section">
-      <button class="quiz-back-button" id="quiz-back-{{ card_num }}">Back</button>
-      <button class="quiz-next-button quiz-hidden"
+      <button class="quiz-back-button button button--primary" id="quiz-back-{{ card_num }}">Back</button>
+      <button class="quiz-next-button button button--primary quiz-hidden"
         id="quiz-contact-next"
         data-portal-id="{{ hub_id }}"
         data-form-id="{{ module.hubspot_form.form.form_id }}"
@@ -97,19 +103,21 @@
       id="quiz-card-{{ module.questions|length + 1 + loop.index }}"
       data-winning-category="{{ result.winning_category }}"  
     >
-      <span class="quiz-complete-text">100% Complete</span>
+      <span class="quiz-text">100% Complete</span>
       <div class="quiz-complete-bar">
         <div class="quiz-complete-bar-full" style="width: 100%"></div>
         <div class="quiz-complete-bar-empty" style="width: 0"></div>
       </div>
-      <h3 class="quiz-title">{{ result.title }}</h3>
+      <h3 class="{% if module.style.heading_font.css %}quiz-title{% else %}form-title{% endif %}">
+        {{ result.title }}
+      </h3>
       <p class="quiz-text">{{ result.text }}</p>
       <div class="quiz-nav-section">
         {% set href = result.button_link.url.href %}
         {% if result.button_link.url.type is equalto "EMAIL_ADDRESS" %}
           {% set href = "mailto:" + href %}
         {% endif %}
-        <a class="quiz-next-button"
+        <a class="quiz-next-button button button--primary"
           href="{{ href }}"
           {% if result.button_link.open_in_new_tab %} target="_blank"{% endif %}
           {% if result.button_link.rel %} rel="{{ result.button_link.rel }}"{% endif %}
@@ -121,7 +129,308 @@
 
 {% require_css %}
   <style>
+    .quiz-card {
+      {% if module.style.card.background_color.color %}
+        background-color: rgba({{ module.style.card.background_color.color|convert_rgb }}, {{ module.style.card.background_color.opacity|multiply(.01) }}) !important;
+      {% endif %}
+      {% if module.style.card.corner_radius %}
+        border-radius: {{ module.style.card.corner_radius }}px !important;
+      {% endif %}
+      {{ module.style.card.border.css }}
+      {{ module.style.card.spacing.css }}
+    }
 
+    .quiz-title {
+      {{ module.style.heading_font.css }}
+    }
+
+    .quiz-text {
+      {% if module.style.text_font.css %}
+        {{ module.style.text_font.css }}
+      {% else %}
+        color: {{ theme.forms.form_label_font.color }} !important;
+      {% endif %}
+    }
+
+    .quiz-container label {
+      {{ module.style.label_font.css }}
+    }
+
+    .quiz-complete-bar {
+      height: {{ module.style.progress_bar.height }}px;
+    }
+
+    .quiz-complete-bar-full {
+      background-color: rgba({{ module.style.progress_bar.filled_color.color|convert_rgb }}, {{ module.style.progress_bar.filled_color.opacity|multiply(.01) }});
+    }
+
+    .quiz-complete-bar-empty {
+      background-color: rgba({{ module.style.progress_bar.empty_color.color|convert_rgb }}, {{ module.style.progress_bar.empty_color.opacity|multiply(.01) }});
+    }
+
+    .quiz-answer-button {
+      {% if module.style.answer_button.button_color.color %}
+        background-color: rgba({{ module.style.answer_button.button_color.color|convert_rgb }}, {{ module.style.answer_button.button_color.opacity|multiply(.01) }}) !important;
+      {% endif %}
+      {% if module.style.answer_button.font.font %}
+        font-family: {{ module.style.answer_button.font.font }} !important;
+      {% endif %}
+      {% if module.style.answer_button.font.color %}
+        color: {{ module.style.answer_button.font.color }} !important;
+      {% endif %}
+      {% if module.style.answer_button.font.size %}
+        font-size: {{ module.style.answer_button.font.size }}px !important;
+      {% endif %}
+      {% if module.style.answer_button.font.styles["font-weight"] %}
+        font-weight: {{ module.style.answer_button.font.styles["font-weight"] }} !important;
+      {% endif %}
+      {% if module.style.answer_button.font.styles["text-decoration"] %}
+        text-decoration: {{ module.style.answer_button.font.styles["text-decoration"] }} !important;
+      {% endif %}
+      {% if module.style.answer_button.font.styles["font-style"] %}
+        font-style: {{ module.style.answer_button.font.styles["font-style"] }} !important;
+      {% endif %}
+      {% if module.style.answer_button.border.top.style %}
+        border-style: {{ module.style.answer_button.border.top.style }} !important;
+      {% endif %}
+      {% if module.style.answer_button.border.top.color %}
+        border-color: rgba({{ module.style.answer_button.border.top.color|convert_rgb }}, {{ module.style.answer_button.border.top.opacity|multiply(.01) }}) !important;
+      {% endif %}
+      {% if module.style.answer_button.border.top.width %}
+        border-width: {{ module.style.answer_button.border.top.width.value }}{{ module.style.answer_button.border.top.width.units }} !important;
+      {% endif %}
+      {% if module.style.answer_button.corner_radius or module.style.answer_button.corner_radius == 0 %}
+        border-radius: {{ module.style.answer_button.corner_radius }}px !important;
+      {% endif %}
+      {{ module.style.answer_button.spacing.css }}
+    }
+
+    .quiz-answer-button:hover,
+    .quiz-answer-button-active {
+      {% if module.style.answer_button.hover.button_color.color %}
+        background-color: rgba({{ module.style.answer_button.hover.button_color.color|convert_rgb }}, {{ module.style.answer_button.hover.button_color.opacity|multiply(.01) }}) !important;
+      {% endif %}
+      {% if module.style.answer_button.hover.font.font %}
+        font-family: {{ module.style.answer_button.hover.font.font }} !important;
+      {% endif %}
+      {% if module.style.answer_button.hover.font.color %}
+        color: {{ module.style.answer_button.hover.font.color }} !important;
+      {% endif %}
+      {% if module.style.answer_button.hover.font.size %}
+        font-size: {{ module.style.answer_button.hover.font.size }}px !important;
+      {% endif %}
+      {% if module.style.answer_button.hover.font.styles["font-weight"] %}
+        font-weight: {{ module.style.answer_button.hover.font.styles["font-weight"] }} !important;
+      {% endif %}
+      {% if module.style.answer_button.hover.font.styles["text-decoration"] %}
+        text-decoration: {{ module.style.answer_button.hover.font.styles["text-decoration"] }} !important;
+      {% endif %}
+      {% if module.style.answer_button.hover.font.styles["font-style"] %}
+        font-style: {{ module.style.answer_button.hover.font.styles["font-style"] }} !important;
+      {% endif %}
+      {% if module.style.answer_button.hover.border.top.style %}
+        border-style: {{ module.style.answer_button.hover.border.top.style }} !important;
+      {% endif %}
+      {% if module.style.answer_button.hover.border.top.color %}
+        border-color: rgba({{ module.style.answer_button.hover.border.top.color|convert_rgb }}, {{ module.style.answer_button.hover.border.top.opacity|multiply(.01) }}) !important;
+      {% endif %}
+      {% if module.style.answer_button.hover.border.top.width %}
+        border-width: {{ module.style.answer_button.hover.border.top.width.value }}{{ module.style.answer_button.hover.border.top.width.units }} !important;
+      {% endif %}
+    }
+
+    .quiz-back-button {
+      {% if module.style.back_button.button_color.color %}
+        background-color: rgba({{ module.style.back_button.button_color.color|convert_rgb }}, {{ module.style.back_button.button_color.opacity|multiply(.01) }}) !important;
+      {% endif %}
+      {% if module.style.back_button.font.font %}
+        font-family: {{ module.style.back_button.font.font }} !important;
+      {% endif %}
+      {% if module.style.back_button.font.color %}
+        color: {{ module.style.back_button.font.color }} !important;
+      {% endif %}
+      {% if module.style.back_button.font.size %}
+        font-size: {{ module.style.back_button.font.size }}px !important;
+      {% endif %}
+      {% if module.style.back_button.font.styles["font-weight"] %}
+        font-weight: {{ module.style.back_button.font.styles["font-weight"] }} !important;
+      {% endif %}
+      {% if module.style.back_button.font.styles["text-decoration"] %}
+        text-decoration: {{ module.style.back_button.font.styles["text-decoration"] }} !important;
+      {% endif %}
+      {% if module.style.back_button.font.styles["font-style"] %}
+        font-style: {{ module.style.back_button.font.styles["font-style"] }} !important;
+      {% endif %}
+      {% if module.style.back_button.border.top.style %}
+        border-style: {{ module.style.back_button.border.top.style }} !important;
+      {% endif %}
+      {% if module.style.back_button.border.top.color %}
+        border-color: rgba({{ module.style.back_button.border.top.color|convert_rgb }}, {{ module.style.back_button.border.top.opacity|multiply(.01) }}) !important;
+      {% endif %}
+      {% if module.style.back_button.border.top.width %}
+        border-width: {{ module.style.back_button.border.top.width.value }}{{ module.style.back_button.border.top.width.units }} !important;
+      {% endif %}
+      {% if module.style.back_button.corner_radius or module.style.back_button.corner_radius == 0 %}
+        border-radius: {{ module.style.back_button.corner_radius }}px !important;
+      {% endif %}
+      {{ module.style.back_button.spacing.css }}
+    }
+
+    .quiz-back-button:hover {
+      {% if module.style.back_button.hover.button_color.color %}
+        background-color: rgba({{ module.style.back_button.hover.button_color.color|convert_rgb }}, {{ module.style.back_button.hover.button_color.opacity|multiply(.01) }}) !important;
+      {% endif %}
+      {% if module.style.back_button.hover.font.font %}
+        font-family: {{ module.style.back_button.hover.font.font }} !important;
+      {% endif %}
+      {% if module.style.back_button.hover.font.color %}
+        color: {{ module.style.back_button.hover.font.color }} !important;
+      {% endif %}
+      {% if module.style.back_button.hover.font.size %}
+        font-size: {{ module.style.back_button.hover.font.size }}px !important;
+      {% endif %}
+      {% if module.style.back_button.hover.font.styles["font-weight"] %}
+        font-weight: {{ module.style.back_button.hover.font.styles["font-weight"] }} !important;
+      {% endif %}
+      {% if module.style.back_button.hover.font.styles["text-decoration"] %}
+        text-decoration: {{ module.style.back_button.hover.font.styles["text-decoration"] }} !important;
+      {% endif %}
+      {% if module.style.back_button.hover.font.styles["font-style"] %}
+        font-style: {{ module.style.back_button.hover.font.styles["font-style"] }} !important;
+      {% endif %}
+      {% if module.style.back_button.hover.border.top.style %}
+        border-style: {{ module.style.back_button.hover.border.top.style }} !important;
+      {% endif %}
+      {% if module.style.back_button.hover.border.top.color %}
+        border-color: rgba({{ module.style.back_button.hover.border.top.color|convert_rgb }}, {{ module.style.back_button.hover.border.top.opacity|multiply(.01) }}) !important;
+      {% endif %}
+      {% if module.style.back_button.hover.border.top.width %}
+        border-width: {{ module.style.back_button.hover.border.top.width.value }}{{ module.style.back_button.hover.border.top.width.units }} !important;
+      {% endif %}
+    }
+
+    .quiz-next-button {
+      {% if module.style.next_button.button_color.color %}
+        background-color: rgba({{ module.style.next_button.button_color.color|convert_rgb }}, {{ module.style.next_button.button_color.opacity|multiply(.01) }}) !important;
+      {% endif %}
+      {% if module.style.next_button.font.font %}
+        font-family: {{ module.style.next_button.font.font }} !important;
+      {% endif %}
+      {% if module.style.next_button.font.color %}
+        color: {{ module.style.next_button.font.color }} !important;
+      {% endif %}
+      {% if module.style.next_button.font.size %}
+        font-size: {{ module.style.next_button.font.size }}px !important;
+      {% endif %}
+      {% if module.style.next_button.font.styles["font-weight"] %}
+        font-weight: {{ module.style.next_button.font.styles["font-weight"] }} !important;
+      {% endif %}
+      {% if module.style.next_button.font.styles["text-decoration"] %}
+        text-decoration: {{ module.style.next_button.font.styles["text-decoration"] }} !important;
+      {% endif %}
+      {% if module.style.next_button.font.styles["font-style"] %}
+        font-style: {{ module.style.next_button.font.styles["font-style"] }} !important;
+      {% endif %}
+      {% if module.style.next_button.border.top.style %}
+        border-style: {{ module.style.next_button.border.top.style }} !important;
+      {% endif %}
+      {% if module.style.next_button.border.top.color %}
+        border-color: rgba({{ module.style.next_button.border.top.color|convert_rgb }}, {{ module.style.next_button.border.top.opacity|multiply(.01) }}) !important;
+      {% endif %}
+      {% if module.style.next_button.border.top.width %}
+        border-width: {{ module.style.next_button.border.top.width.value }}{{ module.style.next_button.border.top.width.units }} !important;
+      {% endif %}
+      {% if module.style.next_button.corner_radius or module.style.next_button.corner_radius == 0 %}
+        border-radius: {{ module.style.next_button.corner_radius }}px !important;
+      {% endif %}
+      {{ module.style.next_button.spacing.css }}
+    }
+
+    .quiz-next-button:hover {
+      {% if module.style.next_button.hover.button_color.color %}
+        background-color: rgba({{ module.style.next_button.hover.button_color.color|convert_rgb }}, {{ module.style.next_button.hover.button_color.opacity|multiply(.01) }}) !important;
+      {% endif %}
+      {% if module.style.next_button.hover.font.font %}
+        font-family: {{ module.style.next_button.hover.font.font }} !important;
+      {% endif %}
+      {% if module.style.next_button.hover.font.color %}
+        color: {{ module.style.next_button.hover.font.color }} !important;
+      {% endif %}
+      {% if module.style.next_button.hover.font.size %}
+        font-size: {{ module.style.next_button.hover.font.size }}px !important;
+      {% endif %}
+      {% if module.style.next_button.hover.font.styles["font-weight"] %}
+        font-weight: {{ module.style.next_button.hover.font.styles["font-weight"] }} !important;
+      {% endif %}
+      {% if module.style.next_button.hover.font.styles["text-decoration"] %}
+        text-decoration: {{ module.style.next_button.hover.font.styles["text-decoration"] }} !important;
+      {% endif %}
+      {% if module.style.next_button.hover.font.styles["font-style"] %}
+        font-style: {{ module.style.next_button.hover.font.styles["font-style"] }} !important;
+      {% endif %}
+      {% if module.style.next_button.hover.border.top.style %}
+        border-style: {{ module.style.next_button.hover.border.top.style }} !important;
+      {% endif %}
+      {% if module.style.next_button.hover.border.top.color %}
+        border-color: rgba({{ module.style.next_button.hover.border.top.color|convert_rgb }}, {{ module.style.next_button.hover.border.top.opacity|multiply(.01) }}) !important;
+      {% endif %}
+      {% if module.style.next_button.hover.border.top.width %}
+        border-width: {{ module.style.next_button.hover.border.top.width.value }}{{ module.style.next_button.hover.border.top.width.units }} !important;
+      {% endif %}
+    }
+
+    .quiz-input,
+    .quiz-contact-input {
+      {% if module.style.form_fields.input_font.font %}
+        font-family: {{ module.style.form_fields.input_font.font }} !important;
+      {% endif %}
+      {% if module.style.form_fields.input_font.color %}
+        color: {{ module.style.form_fields.input_font.color }} !important;
+      {% endif %}
+      {% if module.style.form_fields.input_font.size %}
+        font-size: {{ module.style.form_fields.input_font.size }}px !important;
+      {% endif %}
+      {% if module.style.form_fields.input_font.styles["font-weight"] %}
+        font-weight: {{ module.style.form_fields.input_font.styles["font-weight"] }} !important;
+      {% endif %}
+      {% if module.style.form_fields.input_font.styles["text-decoration"] %}
+        text-decoration: {{ module.style.form_fields.input_font.styles["text-decoration"] }} !important;
+      {% endif %}
+      {% if module.style.form_fields.input_font.styles["font-style"] %}
+        font-style: {{ module.style.form_fields.input_font.styles["font-style"] }} !important;
+      {% endif %}
+      {% if module.style.form_fields.background_color.color %}
+        background-color: rgba({{ module.style.form_fields.background_color.color|convert_rgb }}, {{ module.style.form_fields.background_color.opacity|multiply(.01) }}) !important;
+      {% endif %}
+      {% if module.style.form_fields.border.top.style %}
+        border-style: {{ module.style.form_fields.border.top.style }} !important;
+      {% endif %}
+      {% if module.style.form_fields.border.top.color %}
+        border-color: rgba({{ module.style.form_fields.border.top.color|convert_rgb }}, {{ module.style.form_fields.border.top.opacity|multiply(.01) }}) !important;
+      {% endif %}
+      {% if module.style.form_fields.border.top.width %}
+        border-width: {{ module.style.form_fields.border.top.width.value }}{{ module.style.form_fields.border.top.width.units }} !important;
+      {% endif %}
+      {% if module.style.form_fields.corner_radius or module.style.form_fields.corner_radius == 0 %}
+        border-radius: {{ module.style.form_fields.corner_radius }}px !important;
+      {% endif %}
+    }
+
+    .quiz-input:focus,
+    .quiz-contact-input:focus {
+      {% if module.style.form_fields.focused_background_color.color %}
+        background-color: rgba({{ module.style.form_fields.focused_background_color.color|convert_rgb }}, {{ module.style.form_fields.focused_background_color.opacity|multiply(.01) }}) !important;
+      {% endif %}
+      {% if module.style.form_fields.focused_border.top.style %}
+        border-style: {{ module.style.form_fields.focused_border.top.style }} !important;
+      {% endif %}
+      {% if module.style.form_fields.focused_border.top.color %}
+        border-color: rgba({{ module.style.form_fields.focused_border.top.color|convert_rgb }}, {{ module.style.form_fields.focused_border.top.opacity|multiply(.01) }}) !important;
+      {% endif %}
+      {% if module.style.form_fields.focused_border.top.width %}
+        border-width: {{ module.style.form_fields.focused_border.top.width.value }}{{ module.style.form_fields.focused_border.top.width.units }} !important;
+      {% endif %}
+    }
   </style>
 {% end_require_css %}
 

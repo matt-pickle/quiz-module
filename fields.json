@@ -331,7 +331,7 @@
             "name": "filled_color",
             "type": "color",
             "default": {
-              "color": "#4A79AD",
+              "color": "#ff8552",
               "opacity": 100
             }
           },
@@ -385,7 +385,11 @@
               {
                 "label": "Button Color",
                 "name": "button_color",
-                "type": "color"
+                "type": "color",
+                "default": {
+                  "color": "#ff8552",
+                  "opacity": 100
+                }
               },
               {
                 "label": "Font",

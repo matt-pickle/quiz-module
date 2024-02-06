@@ -64,22 +64,30 @@ $('.quiz-answer-button').click(function() {
     }
     if ($(this).hasClass("quiz-answer-button-active")) {
       $(this).removeClass("quiz-answer-button-active")
-      categories[category] -= score
+      if (category) {
+        categories[category] -= score
+      }
       answers[internalName] = answers[internalName].filter(answer => answer !== $(this).text())
     } else {
       $(this).addClass("quiz-answer-button-active")
-      categories[category] += score
+      if (category) {
+        categories[category] += score
+      }
       answers[internalName].push($(this).text())
     }
   } else {
     $(`#quiz-card-${cardNum} .quiz-answer-button-active`).each(function() {
       const thisAnswerScore = Number($(this).attr("data-score"))
       const thisAnswerCategory = $(this).attr("data-scoring-category")
-      categories[thisAnswerCategory] -= thisAnswerScore
+      if (thisAnswerCategory) {
+        categories[thisAnswerCategory] -= thisAnswerScore
+      }
       $(this).removeClass("quiz-answer-button-active")
     })
     $(this).addClass("quiz-answer-button-active")
-    categories[category] += score
+    if (category) {
+      categories[category] += score
+    }
     answers[internalName] = $(this).text()
   }
   $(`#quiz-next-${cardNum}`).removeClass("quiz-invisible")

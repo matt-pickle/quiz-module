@@ -1,14 +1,64 @@
+.quiz-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.quiz-card h3 {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 25px;
+}
+
+.quiz-text {
+  text-align: center;
+}
+
 .quiz-container .button {
   cursor: pointer;   
+}
+
+.quiz-next-button {
+  display: inline-block;
+}
+
+.quiz-answer-section {
+  text-align: center;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.quiz-answer-button {
+  text-wrap: wrap;
+  margin: 10px !important;
+}
+
+.quiz-container label {
+  text-align: left;
+  align-self: flex-start;
+}
+
+.quiz-contact-input {
+  margin-bottom: 25px;
+}
+
+.quiz-contact-input:last-of-type {
+  margin-bottom: 0;
 }
 
 .quiz-complete-bar {
   display: flex;
   width: 100%;
   margin-top: 5px;
-  margin-bottom: 25px;
+  margin-bottom: 35px;
 }
 
 .quiz-hidden {
   display: none;
+}
+
+.quiz-invisible {
+  visibility: hidden;
 }

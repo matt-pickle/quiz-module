@@ -48,7 +48,7 @@
       </div>
       <div class="quiz-nav-section">
         <button class="quiz-back-button button button--primary" id="quiz-back-{{ card_num }}">Back</button>
-        <button class="quiz-next-button button button--primary quiz-hidden" id="quiz-next-{{ card_num }}">Next</button>
+        <button class="quiz-next-button button button--primary quiz-invisible" id="quiz-next-{{ card_num }}">Next</button>
       </div>
     </form>
   {% endfor %}
@@ -86,7 +86,7 @@
     </div>
     <div class="quiz-nav-section">
       <button class="quiz-back-button button button--primary" id="quiz-back-{{ card_num }}">Back</button>
-      <button class="quiz-next-button button button--primary quiz-hidden"
+      <button class="quiz-next-button button button--primary quiz-invisible"
         id="quiz-contact-next"
         data-portal-id="{{ hub_id }}"
         data-form-id="{{ module.hubspot_form.form.form_id }}"
@@ -111,7 +111,7 @@
       <h3 class="{% if module.style.heading_font.css %}quiz-title{% else %}form-title{% endif %}">
         {{ result.title }}
       </h3>
-      <p class="quiz-text">{{ result.text }}</p>
+      <div class="quiz-text">{{ result.text }}</div>
       <div class="quiz-nav-section">
         {% set href = result.button_link.url.href %}
         {% if result.button_link.url.type is equalto "EMAIL_ADDRESS" %}

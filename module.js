@@ -79,13 +79,13 @@ $('.quiz-answer-button').click(function() {
     categories[category] += score
     answers[internalName] = $(this).text()
   }
-  $(`#quiz-next-${cardNum}`).removeClass("quiz-hidden")
+  $(`#quiz-next-${cardNum}`).removeClass("quiz-invisible")
 })
 
 $('.quiz-input').on("input", function() {
   const internalName = $(this).parent().parent().attr("data-internal-name")
   answers[internalName] = $(this).val()
-  $(this).parent().next(".quiz-nav-section").find(".quiz-next-button").removeClass("quiz-hidden")
+  $(this).parent().next(".quiz-nav-section").find(".quiz-next-button").removeClass("quiz-invisible")
 })
 
 $('.quiz-contact-input').on("input", function() {
@@ -98,7 +98,7 @@ $('.quiz-contact-input').on("input", function() {
     }
   })
   if (allFilled) {
-    $(this).parent().next(".quiz-nav-section").find(".quiz-next-button").removeClass("quiz-hidden")
+    $(this).parent().next(".quiz-nav-section").find(".quiz-next-button").removeClass("quiz-invisible")
   }
 })
 

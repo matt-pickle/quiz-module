@@ -271,6 +271,21 @@
     "type": "group",
     "children": [
       {
+        "label": "Heading Font",
+        "name": "heading_font",
+        "type": "font"
+      },
+      {
+        "label": "Text Font",
+        "name": "text_font",
+        "type": "font"
+      },
+      {
+        "label": "Label Font",
+        "name": "label_font",
+        "type": "font"
+      },
+      {
         "label": "Card",
         "name": "card",
         "type": "group",
@@ -297,21 +312,6 @@
             "type": "spacing"
           }
         ]
-      },
-      {
-        "label": "Heading Font",
-        "name": "heading_font",
-        "type": "font"
-      },
-      {
-        "label": "Text Font",
-        "name": "text_font",
-        "type": "font"
-      },
-      {
-        "label": "Label Font",
-        "name": "label_font",
-        "type": "font"
       },
       {
         "label": "Progress Bar",
